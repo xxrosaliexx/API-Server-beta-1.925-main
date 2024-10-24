@@ -14,13 +14,12 @@ export default class MiddlewaresPipeline {
         this.middlewares.push(middleware);
     }
     async handleHttpRequest(HttpContext) {
-        if (await CachedRequestManager.get(HttpContext) ){
-            return true;
-        }
+       
         for (let middleware of this.middlewares) {
             if (await middleware(HttpContext)) 
                 return true;
         }
+        
         return false;
     }
 }

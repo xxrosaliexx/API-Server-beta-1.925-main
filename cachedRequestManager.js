@@ -82,11 +82,11 @@ export default class CachedRequestManager {
     Envoyer la réponse avec 
     HttpContext.response.JSON( content, ETag, true /* from cache */
     console.log("get httpContext =" + HttpContext)
-    let request = this.find(HttpContext.req.url);
+    let request = CachedRequestManager.find(HttpContext.req.url);
     if (request !=null) {
         return HttpContext.response.JSON(request.content, request.ETag, true);
     }
-    
+    return false;
     
 
 }

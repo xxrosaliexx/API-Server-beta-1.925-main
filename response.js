@@ -42,16 +42,16 @@ export default class Response {
     }
     JSON(obj, ETag = "", fromCache=false) {  
          // ok status with content
-            let content = JSON.stringify(obj);
-        if (!fromCache  )
+        let content =JSON.stringify(obj);
+        if (!fromCache){
             if(this.HttpContext.isCacheable ){
                 CachedRequestManager.add(this.HttpContext.req.url, content, ETag);
             }
-            else{
-                if (ETag != "")
-                    this.res.writeHead(200, { 'content-type': 'application/json', 'ETag': ETag });
-                else
-                    this.res.writeHead(200, { 'content-type': 'application/json' });
+        }else{
+            if (ETag != "")
+                this.res.writeHead(200, { 'content-type': 'application/json', 'ETag': ETag });
+            else
+                this.res.writeHead(200, { 'content-type': 'application/json' });
             }
             if (obj != null) {
                 let content = JSON.stringify(obj);
